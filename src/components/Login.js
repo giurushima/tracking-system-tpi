@@ -5,6 +5,8 @@ const Login = () => {
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
   const login = () => {
+    console.log(user);
+    console.log(password);
     //aca se hace el fetch a la api
   };
   return (

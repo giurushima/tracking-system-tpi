@@ -8,10 +8,14 @@ import NavBar from "./components/NavBar";
 import { Route, Routes } from "react-router-dom";
 
 function App() {
+  const state = {
+    session: true,
+  };
+
   return (
     <div className="App">
       <header className="App-header">
-        <NavBar />
+        {state.session ? <NavBar /> : <Login />}
       </header>
       <div>
         <Routes>
