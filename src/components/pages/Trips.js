@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import "./Trips.css";
 
 const Trips = () => {
   const [source, setSource] = useState("");
@@ -9,8 +10,10 @@ const Trips = () => {
 
   return (
     <>
-      <h1>Formulario</h1>
-      <form>
+      <form className="form-Trips">
+      <div className="inputs-trips">
+        <h1>Formulario</h1>
+        
         <label htmlFor="source">ORIGEN</label>
         <br />
         <input
@@ -61,6 +64,7 @@ const Trips = () => {
         </select>
         <br />
         <button type="submit">CARGAR VIAJE</button>
+        </div>
       </form>
     </>
   );
