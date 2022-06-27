@@ -9,20 +9,19 @@ import { createContext, useState } from "react";
 
 import "./App.css";
 
-
 export const ThemeContext = createContext(null);
 
 function App() {
   const [theme, setTheme] = useState("light");
   const state = {
     session: true,
-  };
-  const toggleTheme = () => {
+  }
+  const changeTheme = () => {
     setTheme((item) => (item === "light" ? "dark" : "light"));
   };
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+    <ThemeContext.Provider value={{ theme, changeTheme }}>
     <div className="App" id={theme} >
       <div className="App-header">
         {state.session ? <NavBar /> : <Login />}
@@ -37,8 +36,8 @@ function App() {
         </Routes>
       </div>
       <div className="theme-input" >
-      <label>{theme === "light" ? "Light Mode" : "Dark Mode"}</label>
-      <input type="checkbox" onChange={toggleTheme} checked={theme === "dark"} />
+      <label>{theme === "light" ? "Modo Claro" : "Modo Oscuro"}</label>
+      <input type="checkbox" onChange={changeTheme} checked={theme === "dark"} />
       </div>
     </div>
     </ThemeContext.Provider>

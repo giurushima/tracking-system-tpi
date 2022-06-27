@@ -1,3 +1,5 @@
+import { Nav } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import "./Home.css";
 
 const Home = () => {
@@ -5,13 +7,22 @@ const Home = () => {
     <>
       <div className="primary">
         <div className="secondary">
-        <p>Bienvenidos a la pagina Web</p>
-        
+          <h1>Bienvenidos a la pagina Web</h1>
         </div>
-        <h3>Inicio</h3>
-        <h3>Viajes</h3>
-        <h3>Empleados</h3>
-        <h3>Recibos</h3>
+        <div className="third" >
+          <Nav.Link as={Link} to="/">
+            Inicio
+          </Nav.Link>
+          <Nav.Link as={Link} to="/pages/Trips">
+            Viajes
+          </Nav.Link>
+          <Nav.Link as={Link} to="/pages/Employed">
+            Empleados
+          </Nav.Link>
+          <Nav.Link as={Link} to="/pages/Receipt">
+            Recibos
+          </Nav.Link>
+        </div>
       </div>
     </>
   );

@@ -2,23 +2,32 @@ import React, { useState } from "react";
 import "./Login.css";
 
 const Login = () => {
-  const [user, setUser] = useState("");
-  const [password, setPassword] = useState("");
+  const [userLogin, setUserLogin] = useState("");
+  const [passwordLogin, setPasswordLogin] = useState("");
+
+  const changeUserLoginHandler = (e) => {
+    setUserLogin(e.target.value);
+  };
+  const changePasswordLoginHandler = (e) => {
+    setPasswordLogin(e.target.value);
+  };
+
   const login = () => {
-    console.log(user);
-    console.log(password);
+    console.log(userLogin);
+    console.log(passwordLogin);
     //aca se hace el fetch a la api
   };
+
   return (
     <>
-      <div className="containerPrincipal">
-        <div className="containerSecundario">
+      <div className="primary-container">
+        <div className="secondary-container">
           <div className="form-group">
             <label>Usuario: </label>
             <br />
             <input
               type="text"
-              onChange={(e) => setUser(e.target.value)}
+              onChange={changeUserLoginHandler}
               className="form-control"
             />
             <br />
@@ -26,7 +35,7 @@ const Login = () => {
             <br />
             <input
               type="password"
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={changePasswordLoginHandler}
               className="form-control"
             />
             <br />

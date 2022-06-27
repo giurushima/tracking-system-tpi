@@ -1,3 +1,17 @@
-.inputs {
-    text-align: center;
+.inputs-receipts {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border: 2px solid blue;
+  padding: 40px;
+  text-align: center;
+}
+
+#light .form-receipts {
+  color: black;
+}
+
+#dark .form-receipts {
+  color: white;
 }

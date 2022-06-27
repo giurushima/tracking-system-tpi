@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import "./Employed.css"
+import "./Employed.css";
 
 const Employed = () => {
   const [name, setName] = useState("");
@@ -9,11 +9,27 @@ const Employed = () => {
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
 
+  const changeNameHandler = (e) => {
+    setName(e.target.value);
+  };
+  const changeLastNameHandler = (e) => {
+    setLastName(e.target.value);
+  };
+  const changePositionHandler = (e) => {
+    setPosition(e.target.value);
+  };
+  const changeUserHandler = (e) => {
+    setUser(e.target.value);
+  };
+  const changePasswordHandler = (e) => {
+    setPassword(e.target.value);
+  };
+
   return (
     <>
       <form className="form-employee">
         <div className="inputs-employee">
-          <h1>Formulario</h1>
+          <h1>EMPLEADOS</h1>
           <label htmlFor="name">NOMBRE/S</label>
           <br />
           <input
@@ -21,7 +37,7 @@ const Employed = () => {
             id="name"
             name="name"
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={changeNameHandler}
           />
           <br />
           <label htmlFor="lastName">APELLIDO/S</label>
@@ -31,7 +47,7 @@ const Employed = () => {
             id="lastName"
             name="lastName"
             value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
+            onChange={changeLastNameHandler}
           />
           <br />
           <label htmlFor="user">NOMBRE DE USUARIO</label>
@@ -41,7 +57,7 @@ const Employed = () => {
             id="user"
             name="user"
             value={user}
-            onChange={(e) => setUser(e.target.value)}
+            onChange={changePositionHandler}
           />
           <br />
           <label htmlFor="password">CONTRASEÑA</label>
@@ -51,14 +67,15 @@ const Employed = () => {
             id="password"
             name="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={changeUserHandler}
           />
           <br />
           <label htmlFor="position">CARGO/POSICION</label>
           <br />
           <select
+            value={position}
             name="position"
-            onChange={(e) => setPosition(e.target.value)}
+            onChange={changePasswordHandler}
             defaultValue=""
           >
             <option value="">---</option>
@@ -66,7 +83,7 @@ const Employed = () => {
             <option value="Camionero">Camionero</option>
           </select>
           <br />
-          <button type="submit">CARGAR USUARIO</button>
+          <button type="submit" className="btn btn-primary" >CARGAR USUARIO</button>
         </div>
       </form>
     </>

@@ -1,3 +1,17 @@
-.form-employee{
-    text-align: center;
+.inputs-employee {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border: 2px solid blue;
+  padding: 40px;
+  text-align: center;
+}
+
+#light .form-employee {
+  color: black;
+}
+
+#dark .form-employee {
+  color: white;
 }
