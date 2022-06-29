@@ -24,3 +24,10 @@
 #dark .theme-input label {
   color: white;
 }
+
+.red {
+  color: red;
+  font-size: 95%;
+  font-weight: bold;
+}
+

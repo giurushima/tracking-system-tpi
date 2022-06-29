@@ -5,9 +5,10 @@ import "./Employed.css";
 const Employed = () => {
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [position, setPosition] = useState("");
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
+  const [position, setPosition] = useState("");
+  const [errors, setErrors] = useState(null);
 
   const changeNameHandler = (e) => {
     setName(e.target.value);
@@ -25,6 +26,45 @@ const Employed = () => {
     setPassword(e.target.value);
   };
 
+  const validationRequirementsEmployee = {
+    name: { required: true },
+    lastName: { required: true },
+    user: { required: true, minLength: 5 },
+    password: { required: true, minLength: 5 },
+    position: { required: true },
+  };
+
+  const validate = (employeeObject) => {
+    let errors = {};
+    if (employeeObject) {
+      Object.keys(validationRequirementsEmployee).forEach((key) => {
+        if (validationRequirementsEmployee[key].required && !employeeObject[key]) {
+          errors[key] = "El campo es obligatorio.";
+        } else if (
+          validationRequirementsEmployee[key].minLength > 0 &&
+          employeeObject[key].length < validationRequirementsEmployee[key].minLength
+        ) {
+          errors[key] =
+            "El campo debe terner al menos " +
+            validationRequirementsEmployee[key].minLength +
+            " caracteres.";
+        }
+      });
+    }
+    return errors;
+  };
+
+  const generateObjectEmployee = () => {
+    const Data = {
+      name,
+      lastName,
+      user,
+      password,
+      position,
+    };
+    return Data;
+  };
+
   return (
     <>
       <form className="form-employee">
@@ -38,7 +78,11 @@ const Employed = () => {
             name="name"
             value={name}
             onChange={changeNameHandler}
+            onBlur={(e) => {
+              setErrors(validate(generateObjectEmployee()));
+            }}
           />
+          {errors?.name && <div className="red"> {errors.name} </div>}
           <br />
           <label htmlFor="lastName">APELLIDO/S</label>
           <br />
@@ -48,7 +92,11 @@ const Employed = () => {
             name="lastName"
             value={lastName}
             onChange={changeLastNameHandler}
+            onBlur={(e) => {
+              setErrors(validate(generateObjectEmployee()));
+            }}
           />
+          {errors?.lastName && <div className="red"> {errors.lastName} </div>}
           <br />
           <label htmlFor="user">NOMBRE DE USUARIO</label>
           <br />
@@ -57,8 +105,12 @@ const Employed = () => {
             id="user"
             name="user"
             value={user}
-            onChange={changePositionHandler}
+            onChange={changeUserHandler}
+            onBlur={(e) => {
+              setErrors(validate(generateObjectEmployee()));
+            }}
           />
+          {errors?.user && <div className="red"> {errors.user} </div>}
           <br />
           <label htmlFor="password">CONTRASEÑA</label>
           <br />
@@ -67,23 +119,32 @@ const Employed = () => {
             id="password"
             name="password"
             value={password}
-            onChange={changeUserHandler}
+            onChange={changePasswordHandler}
+            onBlur={(e) => {
+              setErrors(validate(generateObjectEmployee()));
+            }}
           />
+          {errors?.password && <div className="red"> {errors.password} </div>}
           <br />
           <label htmlFor="position">CARGO/POSICION</label>
           <br />
           <select
             value={position}
             name="position"
-            onChange={changePasswordHandler}
-            defaultValue=""
+            onChange={changePositionHandler}
+            onBlur={(e) => {
+              setErrors(validate(generateObjectEmployee()));
+            }}
           >
             <option value="">---</option>
             <option value="Empleado">Empleado</option>
             <option value="Camionero">Camionero</option>
           </select>
+          {errors?.position && <div className="red"> {errors.position} </div>}
           <br />
-          <button type="submit" className="btn btn-primary" >CARGAR USUARIO</button>
+          <button type="submit" className="btn btn-primary">
+            CARGAR USUARIO
+          </button>
         </div>
       </form>
     </>

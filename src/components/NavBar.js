@@ -6,7 +6,7 @@ const NavBar = () => {
     <Navbar className="navBg" bg="light" expand="lg">
       <Container>
         <Navbar.Brand as={Link} to="/">
-          Nombre Empresa
+          Speedy Truck
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
