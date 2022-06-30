@@ -14,13 +14,13 @@ const NavBar = () => {
             <Nav.Link as={Link} to="/">
               INICIO
             </Nav.Link>
-            <Nav.Link as={Link} to="/pages/Trips">
+            <Nav.Link as={Link} to="/Trips">
               VIAJES
             </Nav.Link>
-            <Nav.Link as={Link} to="/pages/Employed">
+            <Nav.Link as={Link} to="/Employed">
               EMPLEADOS
             </Nav.Link>
-            <Nav.Link as={Link} to="/pages/Receipt">
+            <Nav.Link as={Link} to="/Receipt">
               RECIBOS
             </Nav.Link>
           </Nav>

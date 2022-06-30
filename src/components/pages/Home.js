@@ -13,13 +13,13 @@ const Home = () => {
           <Nav.Link as={Link} to="/">
             Inicio
           </Nav.Link>
-          <Nav.Link as={Link} to="/pages/Trips">
+          <Nav.Link as={Link} to="/Trips">
             Viajes
           </Nav.Link>
-          <Nav.Link as={Link} to="/pages/Employed">
+          <Nav.Link as={Link} to="/Employed">
             Empleados
           </Nav.Link>
-          <Nav.Link as={Link} to="/pages/Receipt">
+          <Nav.Link as={Link} to="/Receipt">
             Recibos
           </Nav.Link>
         </div>
