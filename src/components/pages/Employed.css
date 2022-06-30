@@ -1,20 +1,17 @@
-.primary-container {
+.inputs-employee {
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
   border: 2px solid blue;
   padding: 40px;
-}
-
-.secondary-container {
   text-align: center;
 }
 
-#light .form-group {
+#light .form-employee {
   color: black;
 }
 
-#dark .form-group {
+#dark .form-employee {
   color: white;
 }

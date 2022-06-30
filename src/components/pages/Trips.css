@@ -1,0 +1,18 @@
+.inputs-trips {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border: 2px solid blue;
+  padding: 40px;
+  text-align: center;
+  padding: 3%;
+}
+
+#light .form-Trips {
+  color: black;
+}
+
+#dark .form-Trips {
+  color: white;
+}
