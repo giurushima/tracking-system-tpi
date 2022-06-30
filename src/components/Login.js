@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import "./Login.css";
+import { useAuthDispatch, useAuth } from '../context/AuthContextProvider';
 
 const Login = () => {
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
-  const login = () => {
-    console.log(user);
-    console.log(password);
-    //aca se hace el fetch a la api
-  };
+  const dispatch = useAuthDispatch();
+  const auth = useAuth();
+
   return (
     <>
       <div className="containerPrincipal">
@@ -30,9 +29,18 @@ const Login = () => {
               className="form-control"
             />
             <br />
-            <button className="btn btn-primary" onClick={login()}>
-              Iniciar Sesión
-            </button>
+            {   auth.waitingLogin &&
+                    <p>Logueando por favor espere ....</p>
+            }
+            {   !auth.waitingLogin &&
+                <button
+                    onClick={() => {
+                        dispatch.login(user, password);
+                    }}
+                className="btn btn-primary"
+                >Iniciar Sesión</button>
+            }
+            
           </div>
         </div>
       </div>

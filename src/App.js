@@ -2,28 +2,28 @@ import Home from "./components/pages/Home";
 import Trips from "./components/pages/Trips";
 import Receipt from "./components/pages/Receipt";
 import Employed from "./components/pages/Employed";
-import Login from "./components/Login";
-
+import Login from "./components/auth/Login";
 import NavBar from "./components/NavBar";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
+
 
 function App() {
-  const state = {
-    session: true,
-  };
+
+  const session = false;
+
 
   return (
     <div className="App">
       <header className="App-header">
-        {state.session ? <NavBar /> : <Login />}
+        {session ? <NavBar /> : <Login />}
       </header>
       <div>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/pages/Trips" element={<Trips />} />
-          <Route path="/pages/Employed" element={<Employed />} />
-          <Route path="/pages/Receipt" element={<Receipt />} />
-          <Route path="/Login" element={<Login />} />
+          <Route path="/Trips" element={<Trips />} />
+          <Route path="/Employed" element={<Employed />} />
+          <Route path="/Receipt" element={<Receipt />} />
+          <Route path="/Login" element={session ? <Navigate to="/" replace /> :  <Login />}  />
         </Routes>
       </div>
     </div>
