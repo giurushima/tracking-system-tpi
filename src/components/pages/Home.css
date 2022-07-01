@@ -6,6 +6,7 @@
 
 .primary h1 {
   padding: 5%;
+  text-align: center;
 }
 
 .secondary {
@@ -14,8 +15,9 @@
   font-weight: 500;
 }
 
-.secondary img {
-  max-height: 100%;
+.secondary h4 {
+  text-align: center;
+  text-align: justify;
 }
 
 #light .primary {

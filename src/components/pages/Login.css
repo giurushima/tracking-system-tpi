@@ -7,6 +7,10 @@
   padding: 40px;
 }
 
+h1 {
+  text-align: center;
+}
+
 .secondary-container {
   text-align: center;
 }
@@ -16,5 +20,12 @@
 }
 
 #dark .form-group {
+  color: white;
+}
+#light .primary-container {
+  color: black;
+}
+
+#dark .primary-container {
   color: white;
 }
