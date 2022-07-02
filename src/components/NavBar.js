@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
 import { Nav, Navbar, Container } from "react-bootstrap";
-
+import { Navigate } from "react-router-dom";
 import firebaseApp from "./firebase/firebase-config";
 import { getAuth, signOut } from "firebase/auth";
 const auth = getAuth(firebaseApp);
+
 
 const NavBar = () => {
   return (
@@ -30,7 +31,8 @@ const NavBar = () => {
           </Nav>
         </Navbar.Collapse>
       </Container>
-      <button onClick={() => signOut(auth) } >Cerrar sesion</button>
+      <button onClick={() => signOut(auth)} >Cerrar sesion</button>
+
     </Navbar>
   );
 };

@@ -1,6 +1,23 @@
 import React from "react";
 import { useState } from "react";
 import "./Employed.css";
+import firebaseApp from "../firebase/firebase-config";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+} from "firebase/auth";
+const auth = getAuth(firebaseApp);
+
+async function userRegister(email, password) {
+  const userInfoRegister = await createUserWithEmailAndPassword(
+    auth,
+    email,
+    password
+  ).then((userFirebase) => {
+    return userFirebase;
+  });
+  console.log(userInfoRegister);
+}
 
 const Employed = () => {
   const [name, setName] = useState("");
@@ -53,6 +70,7 @@ const Employed = () => {
     }
     return errors;
   };
+
 
   const generateObjectEmployee = () => {
     const Data = {
@@ -142,7 +160,7 @@ const Employed = () => {
           </select>
           {errors?.position && <div className="red"> {errors.position} </div>}
           <br />
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="btn btn-primary" onSubmit={userRegister(user, password)}>
             CARGAR USUARIO
           </button>
         </div>

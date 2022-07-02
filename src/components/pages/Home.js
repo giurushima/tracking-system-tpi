@@ -31,7 +31,6 @@ const Home = () => {
           <Nav.Link as={Link} to="/Receipt">
             Recibos
           </Nav.Link>
-          <button onClick={() => signOut(auth) } >Cerrar sesion</button>
         </div>
       </div>
     </>

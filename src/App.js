@@ -17,7 +17,7 @@ export const ThemeContext = createContext(null);
 
 function App() {
   const [theme, setTheme] = useState("light");
-  const [session, setSession] = useState(false);
+
   const [user, setUser] = useState(null);
 
   onAuthStateChanged(auth, (userFirebase) => {
@@ -35,16 +35,16 @@ function App() {
   return (
     <ThemeContext.Provider value={{ theme, changeTheme }}>
       <div className="App" id={theme}>
-        <div className="app-header">{user ? <Home /> : <Login />}</div>
+        <div className="app-header">{user ? <Navbar /> : console.log("Error al iniciar sesión")}</div>
         <div>
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/Home" element={<Home />} />
             <Route path="/Trips" element={<Trips />} />
             <Route path="/Employed" element={<Employed />} />
             <Route path="/Receipt" element={<Receipt />} />
             <Route
-              path="/Login"
-              element={session ? <Navigate to="/" replace /> : <Login />}
+              path="/"
+              element={user ? <Navigate to="/Home" replace /> : <Login />}
             />
           </Routes>
         </div>
