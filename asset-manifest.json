@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/tracking-system-tpi/static/css/main.087d564e.css",
+    "main.js": "/tracking-system-tpi/static/js/main.f46f1b58.js",
+    "index.html": "/tracking-system-tpi/index.html",
+    "main.087d564e.css.map": "/tracking-system-tpi/static/css/main.087d564e.css.map",
+    "main.f46f1b58.js.map": "/tracking-system-tpi/static/js/main.f46f1b58.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.087d564e.css",
+    "static/js/main.f46f1b58.js"
+  ]
+}
