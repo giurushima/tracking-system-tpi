@@ -38,10 +38,10 @@ function App() {
         <div className="app-header">{user ? <Navbar /> : console.log("Error al iniciar sesión")}</div>
         <div>
           <Routes>
-            <Route path="/Home" element={<Home />} />
-            <Route path="/Trips" element={<Trips />} />
-            <Route path="/Employed" element={<Employed />} />
-            <Route path="/Receipt" element={<Receipt />} />
+            <Route path="/Home" element={user ? <Home /> : <Navigate to="/" replace />} />
+            <Route path="/Trips" element={user ? <Trips /> : <Navigate to="/" replace />} />
+            <Route path="/Employed" element={user ? <Employed /> : <Navigate to="/" replace />} />
+            <Route path="/Receipt" element={user ? <Receipt /> : <Navigate to="/" replace />} />
             <Route
               path="/"
               element={user ? <Navigate to="/Home" replace /> : <Login />}
