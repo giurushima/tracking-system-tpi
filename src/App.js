@@ -47,7 +47,7 @@ function App() {
               path="/"
               element={user ? <Navigate to="/Home" replace /> : <Login />}
             />
-            <Route path='*' element={<NotFound />} />
+            <Route path='*' element={user ? <Navigate to="/" replace /> : <NotFound />} />
           </Routes>
           
         </div>
