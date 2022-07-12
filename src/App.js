@@ -4,6 +4,7 @@ import Receipt from "./components/pages/Receipt";
 import Employed from "./components/pages/Employed";
 import Login from "./components/pages/Login";
 import Navbar from "./components/NavBar";
+import { NotFound } from "./components/pages/NotFound";
 import { Route, Routes, Navigate } from "react-router-dom";
 import { createContext, useState } from "react";
 
@@ -46,7 +47,9 @@ function App() {
               path="/"
               element={user ? <Navigate to="/Home" replace /> : <Login />}
             />
+            <Route path='*' element={<NotFound />} />
           </Routes>
+          
         </div>
         <div className="theme-input">
           <label>{theme === "light" ? "Modo Claro" : "Modo Oscuro"}</label>
