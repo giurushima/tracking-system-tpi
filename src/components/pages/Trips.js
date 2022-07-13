@@ -51,6 +51,12 @@ const Trips = () => {
     return Data;
   };
 
+  const Data = [
+    { id: 123, name: "Prueba 1", adress: "1 Address" },
+    { id: 124, name: "Prueba 2", adress: "2 Address" },
+    { id: 125, name: "Prueba 3", adress: "3 Address" },
+  ];
+
   return (
     <>
       <form className="form-Trips">
@@ -96,8 +102,11 @@ const Trips = () => {
               setErrors(validate(generateObjectTrips()));
             }}
           >
-            <option value="">---</option>
-            <option value="">---</option>
+            {Data.map((element) => (
+              <option key={element.id} value={element.id}>
+                {element.name}
+              </option>
+            ))}
           </select>
           {errors?.truckDriverTrips && (
             <div className="red"> {errors.truckDriverTrips} </div>
