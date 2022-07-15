@@ -4,7 +4,6 @@ import firebaseApp from "./firebase/firebase-config";
 import { getAuth, signOut } from "firebase/auth";
 const auth = getAuth(firebaseApp);
 
-
 const NavBar = () => {
   return (
     <Navbar className="navBg" bg="light" expand="lg">
@@ -30,7 +29,11 @@ const NavBar = () => {
           </Nav>
         </Navbar.Collapse>
       </Container>
-      <button onClick={() => signOut(auth)} >Cerrar sesion</button>
+      <div className="p-1" >
+        <button className="btn btn-primary " onClick={() => signOut(auth)}>
+          Cerrar sesion
+        </button>
+      </div>
     </Navbar>
   );
 };

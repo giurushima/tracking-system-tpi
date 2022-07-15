@@ -126,9 +126,11 @@ const Trips = () => {
             <div className="red"> {errors.tripStatus} </div>
           )}
           <br />
-          <button type="submit" className="btn btn-primary">
-            CARGAR VIAJE
-          </button>
+          <div className="p-2">
+            <button type="submit" className="btn btn-primary">
+              CARGAR VIAJE
+            </button>
+          </div>
         </div>
       </form>
     </>

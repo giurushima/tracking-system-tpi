@@ -74,9 +74,11 @@ const Receipt = () => {
           <div className="red"> {errors.hoursWorked} </div>
         )}
         <br />
-        <button type="submit" className="btn btn-primary">
-          CALCULAR COSTO
-        </button>
+        <div className="p-2">
+          <button type="submit" className="btn btn-primary">
+            CALCULAR COSTO
+          </button>
+        </div>
       </div>
     </form>
   );

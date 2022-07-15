@@ -4,7 +4,9 @@ import Receipt from "./components/pages/Receipt";
 import Employed from "./components/pages/Employed";
 import Login from "./components/pages/Login";
 import Navbar from "./components/NavBar";
-import { NotFound } from "./components/pages/NotFound";
+import Show from "./components/crud/Show";
+import Create from "./components/crud/Create";
+import Edit from "./components/crud/Edit";
 import { Route, Routes, Navigate } from "react-router-dom";
 import { createContext, useState } from "react";
 
@@ -36,20 +38,45 @@ function App() {
   return (
     <ThemeContext.Provider value={{ theme, changeTheme }}>
       <div className="App" id={theme}>
-        <div className="app-header">{user ? <Navbar /> : console.log("Error al iniciar sesión")}</div>
+        <div className="app-header">
+          {user ? <Navbar /> : console.log("Error al iniciar sesión")}
+        </div>
         <div>
           <Routes>
-            <Route path="/Home" element={user ? <Home /> : <Navigate to="/" replace />} />
-            <Route path="/Trips" element={user ? <Trips /> : <Navigate to="/" replace />} />
-            <Route path="/Employed" element={user ? <Employed /> : <Navigate to="/" replace />} />
-            <Route path="/Receipt" element={user ? <Receipt /> : <Navigate to="/" replace />} />
+            <Route
+              path="/Home"
+              element={user ? <Home /> : <Navigate to="/" replace />}
+            />
+            <Route
+              path="/Trips"
+              element={user ? <Trips /> : <Navigate to="/" replace />}
+            />
+            <Route
+              path="/Employed"
+              element={user ? <Employed /> : <Navigate to="/" replace />}
+            />
+            <Route
+              path="/Receipt"
+              element={user ? <Receipt /> : <Navigate to="/" replace />}
+            />
             <Route
               path="/"
               element={user ? <Navigate to="/Home" replace /> : <Login />}
             />
-            <Route path='*' element={user ? <Navigate to="/" replace /> : <NotFound />} />
+            <Route path="/" element={<Show />} />
+            <Route path="/create" element={<Create />} />
+            <Route path="/edit/:id" element={<Edit />} />
+            <Route
+              path="*"
+              element={
+                user ? (
+                  <Navigate to="/" replace />
+                ) : (
+                  <h1>NotFound - Error 404 </h1>
+                )
+              }
+            />
           </Routes>
-          
         </div>
         <div className="theme-input">
           <label>{theme === "light" ? "Modo Claro" : "Modo Oscuro"}</label>
