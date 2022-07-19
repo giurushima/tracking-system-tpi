@@ -7,6 +7,9 @@ import Navbar from "./components/NavBar";
 import Show from "./components/crud/Show";
 import Create from "./components/crud/Create";
 import Edit from "./components/crud/Edit";
+import ShowTrips from "./components/crud-trips/ShowTrips";
+import CreateTrips from "./components/crud-trips/CreateTrips";
+import EditTrips from "./components/crud-trips/EditTrips";
 import { Route, Routes, Navigate } from "react-router-dom";
 import { createContext, useState } from "react";
 
@@ -63,9 +66,15 @@ function App() {
               path="/"
               element={user ? <Navigate to="/Home" replace /> : <Login />}
             />
+
+            <Route path="/" element={<ShowTrips />} />
+            <Route path="/createTrips" element={<CreateTrips />} />
+            <Route path="/editTrips/:id" element={<EditTrips />} />
+
             <Route path="/" element={<Show />} />
             <Route path="/create" element={<Create />} />
             <Route path="/edit/:id" element={<Edit />} />
+
             <Route
               path="*"
               element={

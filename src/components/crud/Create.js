@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../firebase/firebase-configDB";
 
-import "./Create.css"
+import "./Create.css";
 
 const Create = () => {
   const [name, setName] = useState("");
@@ -46,7 +46,7 @@ const Create = () => {
       password,
       position,
     });
-    navigate("/show");
+    navigate("/create");
   };
 
   const validationRequirementsEmployee = {
@@ -96,11 +96,12 @@ const Create = () => {
     <div className="container">
       <div className="row">
         <div className="col">
-          <h1>Cargar usuario</h1>
+          <h1>CARGAR USUARIO</h1>
           <form onSubmit={createEmployee}>
             <div className="mb-3">
               <label className="form-label">NOMBRE/S</label>
               <input
+                placeholder="ingrese su/s nombre/s"
                 value={name}
                 onChange={changeNameHandler}
                 type="text"
@@ -114,6 +115,7 @@ const Create = () => {
             <div className="mb-3">
               <label className="form-label">APELLIDO/S</label>
               <input
+                placeholder="ingrese su/s apellido/s"
                 value={lastName}
                 onChange={changeLastNameHandler}
                 type="text"
@@ -129,6 +131,7 @@ const Create = () => {
             <div className="mb-3">
               <label className="form-label">NOMBRE DE USUARIO</label>
               <input
+                placeholder="ingrese su nombre de usuario"
                 value={user}
                 onChange={changeUserHandler}
                 type="text"
@@ -142,6 +145,7 @@ const Create = () => {
             <div className="mb-3">
               <label className="form-label">CONTRASEÑA</label>
               <input
+                placeholder="ingrese su contraseña"
                 value={password}
                 onChange={changePasswordHandler}
                 type="password"

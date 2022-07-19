@@ -1,0 +1,7 @@
+#light .container {
+  color: black;
+}
+
+#dark .container {
+  color: white;
+}

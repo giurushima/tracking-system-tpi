@@ -10,25 +10,23 @@ import {
 import { db } from "../firebase/firebase-configDB";
 
 const Show = () => {
-  const [employees, setEmployees] = useState([]);
+  const [trips, setTrips] = useState([]);
 
-  const usersCollectionRef = collection(db, "employees");
+  const tripsCollectionRef = collection(db, "trips");
 
-  const getUsers = async () => {
-    const getEmployeesData = await getDocs(usersCollectionRef);
-    setEmployees(
-      getEmployeesData.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-    );
+  const getTrips = async () => {
+    const getTripsData = await getDocs(tripsCollectionRef);
+    setTrips(getTripsData.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
   };
 
-  const deleteEmployee = async (id) => {
-    const userDoc = doc(db, "employees", id);
+  const deleteTrips = async (id) => {
+    const userDoc = doc(db, "trips", id);
     await deleteDoc(userDoc);
-    getUsers();
+    getTrips();
   };
 
   useEffect(() => {
-    getUsers();
+    getTrips();
   }, []);
 
   return (
@@ -37,39 +35,34 @@ const Show = () => {
         <div className="row">
           <div className="col">
             <div className="d-grid gap-2">
-              <Link to="/create" className="btn btn-secondary mt-2 mb-2">
-                CARGAR USUARIO
+              <Link to="/createTrips" className="btn btn-secondary mt-2 mb-2">
+                CARGAR VIAJE
               </Link>
             </div>
             <table className="table table-dark table-hover">
               <thead>
                 <tr>
-                  <th>Nombre/s</th>
-                  <th>Apellido/s</th>
-                  <th>Usuario</th>
-                  <th>Contraseña</th>
-                  <th>Cargo/Posicion</th>
+                  <th>Origen</th>
+                  <th>Destino</th>
+                  <th>Camionero</th>
+                  <th>Estado del viaje</th>
                   <th>Acciones</th>
                 </tr>
               </thead>
               <tbody>
-                {employees.map((employee) => (
-                  <tr key={employee.id}>
-                    <td>{employee.name}</td>
-                    <td>{employee.lastName}</td>
-                    <td>{employee.user}</td>
-                    <td>{employee.password}</td>
-                    <td>{employee.position}</td>
+                {trips.map((trip) => (
+                  <tr key={trip.id}>
+                    <td>{trip.source}</td>
+                    <td>{trip.destiny}</td>
+                    <td>{trip.truckDriverTrips}</td>
+                    <td>{trip.tripStatus}</td>
                     <td>
-                      <Link
-                        to={`/edit/${employee.id}`}
-                        className="btn btn-light"
-                      >
+                      <Link to={`/editTrips/${trip.id}`} className="btn btn-light">
                         Editar
                       </Link>
                       <button
                         onClick={() => {
-                          deleteEmployee(employee.id);
+                          deleteTrips(trip.id);
                         }}
                         className="btn btn-danger"
                       >

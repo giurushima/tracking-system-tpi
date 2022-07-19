@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getDoc, updateDoc, doc } from "firebase/firestore";
 import { db } from "../firebase/firebase-configDB";
 
-import "./Edit.css"
+import "./Edit.css";
 
 const Edit = () => {
   const [name, setName] = useState("");
@@ -109,11 +109,12 @@ const Edit = () => {
     <div className="container">
       <div className="row">
         <div className="col">
-          <h1>Editar Usuario</h1>
+          <h1>EDITAR USUARIO</h1>
           <form onSubmit={updateEmployee}>
             <div className="mb-3">
               <label className="form-label">NOMBRE/S</label>
               <input
+                placeholder="ingrese su/s nombre/s"
                 value={name}
                 onChange={changeNameHandler}
                 type="text"
@@ -127,6 +128,7 @@ const Edit = () => {
             <div className="mb-3">
               <label className="form-label">APELLIDO/S</label>
               <input
+                placeholder="ingrese su/s apellido/s"
                 value={lastName}
                 onChange={changeLastNameHandler}
                 type="text"
@@ -142,6 +144,7 @@ const Edit = () => {
             <div className="mb-3">
               <label className="form-label">NOMBRE DE USUARIO</label>
               <input
+                placeholder="ingrese su nombre de usuario"
                 value={user}
                 onChange={changeUserHandler}
                 type="text"
@@ -155,6 +158,7 @@ const Edit = () => {
             <div className="mb-3">
               <label className="form-label">CONTRASEÑA</label>
               <input
+                placeholder="ingrese su contraseña"
                 value={password}
                 onChange={changePasswordHandler}
                 type="password"
