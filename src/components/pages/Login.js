@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import Loader from "../loader/Loader";
+
 import "./Login.css";
 
 import firebaseApp from "../firebase/firebase-config";
@@ -9,6 +11,7 @@ const Login = ({}) => {
   const [userLogin_, setUserLogin] = useState("");
   const [passwordLogin, setPasswordLogin] = useState("");
   const [errorsLogin, setErrorsLogin] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const changeUserLoginHandler = (e) => {
     setUserLogin(e.target.value);
@@ -81,52 +84,63 @@ const Login = ({}) => {
     userLogin(email, password);
   };
 
+  useEffect(() => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+  }, []);
+
   return (
     <>
-      <div className="primary-container">
-        <h1>Inicia Sesión</h1>
-        <form onSubmit={submitHandler}>
-          <div className="secondary-container">
-            <div className="form-group">
-              <label>Correo electronico: </label>
-              <br />
-              <input
-                placeholder="ejemplo@gmail.com"
-                type="email"
-                id="email"
-                className="form-control"
-                onChange={changeUserLoginHandler}
-                onBlur={(e) => {
-                  setErrorsLogin(validate(generateObjectLogin()));
-                }}
-              />
-              {errorsLogin?.userLogin_ && (
-                <div className="red"> {errorsLogin.userLogin_} </div>
-              )}
-              <br />
-              <label>Contraseña: </label>
-              <br />
-              <input
-                placeholder="contraseña"
-                type="password"
-                id="password"
-                className="form-control"
-                onChange={changePasswordLoginHandler}
-                onBlur={(e) => {
-                  setErrorsLogin(validate(generateObjectLogin()));
-                }}
-              />
-              {errorsLogin?.passwordLogin && (
-                <div className="red"> {errorsLogin.passwordLogin} </div>
-              )}
-              <br />
-              <button type="submit" className="btn btn-primary">
-                Iniciar Sesión
-              </button>
+      {loading ? (
+        <Loader />
+      ) : (
+        <div className="primary-container">
+          <h1>Inicia Sesión</h1>
+          <form onSubmit={submitHandler}>
+            <div className="secondary-container">
+              <div className="form-group">
+                <label>Correo electronico: </label>
+                <br />
+                <input
+                  placeholder="ejemplo@gmail.com"
+                  type="email"
+                  id="email"
+                  className="form-control"
+                  onChange={changeUserLoginHandler}
+                  onBlur={(e) => {
+                    setErrorsLogin(validate(generateObjectLogin()));
+                  }}
+                />
+                {errorsLogin?.userLogin_ && (
+                  <div className="red"> {errorsLogin.userLogin_} </div>
+                )}
+                <br />
+                <label>Contraseña: </label>
+                <br />
+                <input
+                  placeholder="contraseña"
+                  type="password"
+                  id="password"
+                  className="form-control"
+                  onChange={changePasswordLoginHandler}
+                  onBlur={(e) => {
+                    setErrorsLogin(validate(generateObjectLogin()));
+                  }}
+                />
+                {errorsLogin?.passwordLogin && (
+                  <div className="red"> {errorsLogin.passwordLogin} </div>
+                )}
+                <br />
+                <button type="submit" className="btn btn-primary">
+                  Iniciar Sesión
+                </button>
+              </div>
             </div>
-          </div>
-        </form>
-      </div>
+          </form>
+        </div>
+      )}
     </>
   );
 };

@@ -41,7 +41,7 @@ const Edit = () => {
     const userDoc = doc(db, "employees", id);
     const newFields = { name, lastName, user, password, position };
     await updateDoc(userDoc, newFields);
-    navigate("/");
+    navigate("/employed");
   };
 
   const getEmployeeById = async (id) => {

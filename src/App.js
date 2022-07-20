@@ -10,6 +10,7 @@ import Edit from "./components/crud/Edit";
 import ShowTrips from "./components/crud-trips/ShowTrips";
 import CreateTrips from "./components/crud-trips/CreateTrips";
 import EditTrips from "./components/crud-trips/EditTrips";
+
 import { Route, Routes, Navigate } from "react-router-dom";
 import { createContext, useState } from "react";
 
@@ -17,13 +18,13 @@ import "./App.css";
 
 import firebaseApp from "./components/firebase/firebase-config";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+
 const auth = getAuth(firebaseApp);
 
 export const ThemeContext = createContext(null);
 
 function App() {
   const [theme, setTheme] = useState("light");
-
   const [user, setUser] = useState(null);
 
   onAuthStateChanged(auth, (userFirebase) => {
@@ -68,12 +69,24 @@ function App() {
             />
 
             <Route path="/" element={<ShowTrips />} />
-            <Route path="/createTrips" element={<CreateTrips />} />
-            <Route path="/editTrips/:id" element={<EditTrips />} />
+            <Route
+              path="/createTrips"
+              element={user ? <CreateTrips /> : <Navigate to="/" replace />}
+            />
+            <Route
+              path="/editTrips/:id"
+              element={user ? <EditTrips /> : <Navigate to="/" replace />}
+            />
 
             <Route path="/" element={<Show />} />
-            <Route path="/create" element={<Create />} />
-            <Route path="/edit/:id" element={<Edit />} />
+            <Route
+              path="/create"
+              element={user ? <Create /> : <Navigate to="/" replace />}
+            />
+            <Route
+              path="/edit/:id"
+              element={user ? <Edit /> : <Navigate to="/" replace />}
+            />
 
             <Route
               path="*"

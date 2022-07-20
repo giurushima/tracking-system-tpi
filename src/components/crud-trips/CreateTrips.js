@@ -37,7 +37,7 @@ const Edit = () => {
       truckDriverTrips,
       tripStatus,
     });
-    navigate("/");
+    navigate("/trips");
   };
 
   const validationRequirementsTrips = {

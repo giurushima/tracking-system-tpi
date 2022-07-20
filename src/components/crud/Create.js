@@ -46,7 +46,7 @@ const Create = () => {
       password,
       position,
     });
-    navigate("/create");
+    navigate("/employed");
   };
 
   const validationRequirementsEmployee = {

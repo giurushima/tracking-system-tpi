@@ -33,7 +33,7 @@ const Edit = () => {
     const tripDoc = doc(db, "trips", id);
     const newFields = { source, destiny, truckDriverTrips, tripStatus };
     await updateDoc(tripDoc, newFields);
-    navigate("/");
+    navigate("/trips");
   };
 
   const getTripsById = async (id) => {
