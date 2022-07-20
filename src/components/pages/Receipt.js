@@ -1,4 +1,3 @@
-import "./Receipt.css";
 import {
   Box,
   Button,
@@ -10,7 +9,7 @@ import {
   SkeletonText,
   Text,
 } from "@chakra-ui/react";
-import { FaLocationArrow, FaTimes } from "react-icons/fa";
+ import { FaLocationArrow, FaTimes } from "react-icons/fa";
 
 import {
   useJsApiLoader,
@@ -20,6 +19,7 @@ import {
   DirectionsRenderer,
 } from "@react-google-maps/api";
 import { useRef, useState } from "react";
+import "./Receipt.css";
 
 const center = { lat: -32.95455541974244, lng: -60.656018405277 };
 

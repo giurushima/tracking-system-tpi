@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import Loader from "../loader/Loader";
 
 import "./Login.css";
@@ -7,11 +8,12 @@ import firebaseApp from "../firebase/firebase-config";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 const auth = getAuth(firebaseApp);
 
-const Login = ({}) => {
+const Login = () => {
   const [userLogin_, setUserLogin] = useState("");
   const [passwordLogin, setPasswordLogin] = useState("");
   const [errorsLogin, setErrorsLogin] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [state, setState] = useState(false);
 
   const changeUserLoginHandler = (e) => {
     setUserLogin(e.target.value);
@@ -91,6 +93,10 @@ const Login = ({}) => {
     }, 1000);
   }, []);
 
+  const toggleBtn = () => {
+    setState((prevState) => !prevState);
+  };
+
   return (
     <>
       {loading ? (
@@ -121,7 +127,7 @@ const Login = ({}) => {
                 <br />
                 <input
                   placeholder="contraseña"
-                  type="password"
+                  type={state ? "text" : "password"}
                   id="password"
                   className="form-control"
                   onChange={changePasswordLoginHandler}
@@ -132,6 +138,7 @@ const Login = ({}) => {
                 {errorsLogin?.passwordLogin && (
                   <div className="red"> {errorsLogin.passwordLogin} </div>
                 )}
+
                 <br />
                 <button type="submit" className="btn btn-primary">
                   Iniciar Sesión
@@ -139,6 +146,9 @@ const Login = ({}) => {
               </div>
             </div>
           </form>
+          <button className="btn-eye" onClick={toggleBtn}>
+                  {state ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+                </button>
         </div>
       )}
     </>

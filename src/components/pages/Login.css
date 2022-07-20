@@ -15,6 +15,11 @@ h1 {
   text-align: center;
 }
 
+.btn-eye {
+  padding: 0.5em;
+  margin-left: 6.5em;
+}
+
 #light .form-group {
   color: black;
 }

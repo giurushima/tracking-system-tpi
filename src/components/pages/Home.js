@@ -1,9 +1,5 @@
 import "./Home.css";
 
-import firebaseApp from "../firebase/firebase-config";
-import { getAuth } from "firebase/auth";
-const auth = getAuth(firebaseApp);
-
 const Home = () => {
   return (
     <>

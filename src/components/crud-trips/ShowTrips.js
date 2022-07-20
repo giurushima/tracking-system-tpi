@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import {
   collection,
   getDocs,
-  getDoc,
   deleteDoc,
   doc,
 } from "firebase/firestore";
