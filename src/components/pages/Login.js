@@ -147,8 +147,8 @@ const Login = () => {
             </div>
           </form>
           <button className="btn-eye" onClick={toggleBtn}>
-                  {state ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
-                </button>
+            {state ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
+          </button>
         </div>
       )}
     </>

@@ -1,6 +1,6 @@
 import Home from "./components/pages/Home";
 import Trips from "./components/pages/Trips";
-import Receipt from "./components/pages/Receipt";
+import Map from "./components/pages/Map";
 import Employed from "./components/pages/Employed";
 import Login from "./components/pages/Login";
 import Navbar from "./components/NavBar";
@@ -60,8 +60,8 @@ function App() {
               element={user ? <Employed /> : <Navigate to="/" replace />}
             />
             <Route
-              path="/Receipt"
-              element={user ? <Receipt /> : <Navigate to="/" replace />}
+              path="/Map"
+              element={user ? <Map /> : <Navigate to="/" replace />}
             />
             <Route
               path="/"

@@ -23,8 +23,8 @@ const NavBar = () => {
             <Nav.Link as={Link} to="/Employed">
               EMPLEADOS
             </Nav.Link>
-            <Nav.Link as={Link} to="/Receipt">
-              RECIBOS
+            <Nav.Link as={Link} to="/Map">
+              MAPA
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>

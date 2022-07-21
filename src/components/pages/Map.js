@@ -19,11 +19,11 @@ import {
   DirectionsRenderer,
 } from "@react-google-maps/api";
 import { useRef, useState } from "react";
-import "./Receipt.css";
+import "./Map.css";
 
 const center = { lat: -32.95455541974244, lng: -60.656018405277 };
 
-const Receipt = () => {
+const Map = () => {
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries: ["places"],
@@ -146,4 +146,4 @@ const Receipt = () => {
   );
 };
 
-export default Receipt;
+export default Map;
