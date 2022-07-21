@@ -96,7 +96,9 @@ const Create = () => {
     <div className="container">
       <div className="row">
         <div className="col">
-          <h1>CARGAR USUARIO</h1>
+          <div className="create">
+            <h1>CARGAR USUARIO</h1>
+          </div>
           <form onSubmit={createEmployee}>
             <div className="mb-3">
               <label className="form-label">NOMBRE/S</label>

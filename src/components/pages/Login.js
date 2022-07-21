@@ -103,7 +103,9 @@ const Login = () => {
         <Loader />
       ) : (
         <div className="primary-container">
-          <h1>Inicia Sesión</h1>
+          <div className="login">
+            <h1>Inicia Sesión</h1>
+          </div>
           <form onSubmit={submitHandler}>
             <div className="secondary-container">
               <div className="form-group">

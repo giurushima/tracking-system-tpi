@@ -1,0 +1,11 @@
+.notFound {
+  font-size: 4em;
+}
+
+#light .notFound {
+  color: black;
+}
+
+#dark .notFound {
+  color: white;
+}

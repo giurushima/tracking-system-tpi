@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import {
-  collection,
-  getDocs,
-  deleteDoc,
-  doc,
-} from "firebase/firestore";
+import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
 import { db } from "../firebase/firebase-configDB";
 
 const Show = () => {
@@ -56,7 +51,10 @@ const Show = () => {
                     <td>{trip.truckDriverTrips}</td>
                     <td>{trip.tripStatus}</td>
                     <td>
-                      <Link to={`/editTrips/${trip.id}`} className="btn btn-light">
+                      <Link
+                        to={`/editTrips/${trip.id}`}
+                        className="btn btn-success"
+                      >
                         Editar
                       </Link>
                       <button
@@ -67,6 +65,12 @@ const Show = () => {
                       >
                         Borrar
                       </button>
+                      <Link
+                        to={"/Map"}
+                        className="btn btn-info"
+                      >
+                        Mapa
+                      </Link>
                     </td>
                   </tr>
                 ))}

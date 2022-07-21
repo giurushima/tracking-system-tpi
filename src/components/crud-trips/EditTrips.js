@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getDoc, updateDoc, doc } from "firebase/firestore";
 import { db } from "../firebase/firebase-configDB";
 
-import "./Edit.css";
+import "./EditTrips.css";
 
 const Edit = () => {
   const [source, setSource] = useState("");
@@ -86,12 +86,14 @@ const Edit = () => {
     <div className="container">
       <div className="row">
         <div className="col">
-          <h1>EDITAR VIAJE</h1>
+          <div className="editTrips">
+            <h1>EDITAR VIAJE</h1>
+          </div>
           <form onSubmit={updateTrips}>
             <div className="mb-3">
               <label className="form-label">ORIGEN</label>
               <input
-              placeholder="lugar de origen"
+                placeholder="lugar de origen"
                 value={source}
                 onChange={changeSourceHandler}
                 type="text"

@@ -62,7 +62,7 @@ const Show = () => {
                     <td>
                       <Link
                         to={`/edit/${employee.id}`}
-                        className="btn btn-light"
+                        className="btn btn-success"
                       >
                         Editar
                       </Link>

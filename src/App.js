@@ -10,6 +10,7 @@ import Edit from "./components/crud/Edit";
 import ShowTrips from "./components/crud-trips/ShowTrips";
 import CreateTrips from "./components/crud-trips/CreateTrips";
 import EditTrips from "./components/crud-trips/EditTrips";
+import PageNotFound from "./components/not-found/PageNotFound";
 
 import { Route, Routes, Navigate } from "react-router-dom";
 import { createContext, useState } from "react";
@@ -87,16 +88,9 @@ function App() {
               path="/edit/:id"
               element={user ? <Edit /> : <Navigate to="/" replace />}
             />
-
             <Route
               path="*"
-              element={
-                user ? (
-                  <Navigate to="/" replace />
-                ) : (
-                  <h1>NotFound - Error 404 </h1>
-                )
-              }
+              element={<PageNotFound />}
             />
           </Routes>
         </div>

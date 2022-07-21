@@ -109,7 +109,9 @@ const Edit = () => {
     <div className="container">
       <div className="row">
         <div className="col">
-          <h1>EDITAR USUARIO</h1>
+          <div className="edit">
+            <h1>EDITAR USUARIO</h1>
+          </div>
           <form onSubmit={updateEmployee}>
             <div className="mb-3">
               <label className="form-label">NOMBRE/S</label>

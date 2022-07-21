@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../firebase/firebase-configDB";
 
-import "./Edit.css";
+import "./CreateTrips.css";
 
 const Edit = () => {
   const [source, setSource] = useState("");
@@ -73,7 +73,9 @@ const Edit = () => {
     <div className="container">
       <div className="row">
         <div className="col">
-          <h1>CARGAR VIAJE</h1>
+          <div className="createTrips">
+            <h1>CARGAR VIAJE</h1>
+          </div>
           <form onSubmit={createTrips}>
             <div className="mb-3">
               <label className="form-label">ORIGEN</label>
