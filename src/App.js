@@ -5,7 +5,6 @@ import Employed from "./components/pages/Employed";
 import Login from "./components/pages/Login";
 import Navbar from "./components/NavBar";
 import Show from "./components/crud/Show";
-import Create from "./components/crud/Create";
 import Edit from "./components/crud/Edit";
 import ShowTrips from "./components/crud-trips/ShowTrips";
 import CreateTrips from "./components/crud-trips/CreateTrips";
@@ -80,10 +79,6 @@ function App() {
             />
 
             <Route path="/" element={<Show />} />
-            <Route
-              path="/create"
-              element={user ? <Create /> : <Navigate to="/" replace />}
-            />
             <Route
               path="/edit/:id"
               element={user ? <Edit /> : <Navigate to="/" replace />}

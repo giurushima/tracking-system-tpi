@@ -8,7 +8,7 @@ import "./Edit.css";
 const Edit = () => {
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [user, setUser] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [position, setPosition] = useState("");
   const [errors, setErrors] = useState(null);
@@ -25,7 +25,7 @@ const Edit = () => {
   };
 
   const changeUserHandler = (e) => {
-    setUser(e.target.value);
+    setEmail(e.target.value);
   };
 
   const changePasswordHandler = (e) => {
@@ -39,7 +39,7 @@ const Edit = () => {
   const updateEmployee = async (e) => {
     e.preventDefault();
     const userDoc = doc(db, "employees", id);
-    const newFields = { name, lastName, user, password, position };
+    const newFields = { name, lastName, email, password, position };
     await updateDoc(userDoc, newFields);
     navigate("/employed");
   };
@@ -50,7 +50,7 @@ const Edit = () => {
       console.log(employee.data());
       setName(employee.data().name);
       setLastName(employee.data().lastName);
-      setUser(employee.data().user);
+      setEmail(employee.data().email);
       setPassword(employee.data().password);
       setPosition(employee.data().position);
     } else {
@@ -65,7 +65,7 @@ const Edit = () => {
   const validationRequirementsEmployee = {
     name: { required: true },
     lastName: { required: true },
-    user: { required: true, minLength: 6 },
+    email: { required: true},
     password: { required: true, minLength: 6 },
     position: { required: true },
   };
@@ -98,7 +98,7 @@ const Edit = () => {
     const Data = {
       name,
       lastName,
-      user,
+      email,
       password,
       position,
     };
@@ -144,12 +144,12 @@ const Edit = () => {
               )}
             </div>
             <div className="mb-3">
-              <label className="form-label">NOMBRE DE USUARIO</label>
+              <label className="form-label">EMAIL</label>
               <input
-                placeholder="ingrese su nombre de usuario"
-                value={user}
+                placeholder="ingrese su email"
+                value={email}
                 onChange={changeUserHandler}
-                type="text"
+                type="email"
                 className="form-control"
                 onBlur={(e) => {
                   setErrors(validate(generateObjectEmployee()));
@@ -185,6 +185,8 @@ const Edit = () => {
                 }}
               >
                 <option value="">---</option>
+                <option value="Predeterminado">Predeterminado</option>
+                <option value="Administrador">Administrador</option>
                 <option value="Empleado">Empleado</option>
                 <option value="Camionero">Camionero</option>
               </select>

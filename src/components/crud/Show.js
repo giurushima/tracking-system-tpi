@@ -35,17 +35,12 @@ const Show = () => {
       <div className="container">
         <div className="row">
           <div className="col">
-            <div className="d-grid gap-2">
-              <Link to="/create" className="btn btn-secondary mt-2 mb-2">
-                CARGAR USUARIO
-              </Link>
-            </div>
             <table className="table table-dark table-hover">
               <thead>
                 <tr>
                   <th>Nombre/s</th>
                   <th>Apellido/s</th>
-                  <th>Usuario</th>
+                  <th>Email</th>
                   <th>Contraseña</th>
                   <th>Cargo/Posicion</th>
                   <th>Acciones</th>
@@ -56,7 +51,7 @@ const Show = () => {
                   <tr key={employee.id}>
                     <td>{employee.name}</td>
                     <td>{employee.lastName}</td>
-                    <td>{employee.user}</td>
+                    <td>{employee.email}</td>
                     <td>{employee.password}</td>
                     <td>{employee.position}</td>
                     <td>

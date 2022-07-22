@@ -1,19 +1,35 @@
 import React, { useState, useEffect } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import Loader from "../loader/Loader";
-
+import { getFirestore, doc, collection, setDoc } from "firebase/firestore";
 import "./Login.css";
 
 import firebaseApp from "../firebase/firebase-config";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+} from "firebase/auth";
 const auth = getAuth(firebaseApp);
 
 const Login = () => {
+  const firestore = getFirestore(firebaseApp);
   const [userLogin_, setUserLogin] = useState("");
   const [passwordLogin, setPasswordLogin] = useState("");
   const [errorsLogin, setErrorsLogin] = useState(null);
+  const [name, setName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [loading, setLoading] = useState(false);
   const [state, setState] = useState(false);
+  const [isRegistering, setIsRegistering] = useState(false);
+
+  const changeNameHandler = (e) => {
+    setName(e.target.value);
+  };
+
+  const changeLastNameHandler = (e) => {
+    setLastName(e.target.value);
+  };
 
   const changeUserLoginHandler = (e) => {
     setUserLogin(e.target.value);
@@ -67,6 +83,20 @@ const Login = () => {
     return Data;
   };
 
+  async function userRegister(email, password) {
+    const userInfoRegister = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    ).then((userFirebase) => {
+      return userFirebase;
+    });
+    console.log(userInfoRegister);
+    console.log(userInfoRegister.user.uid);
+    const docRef = doc(firestore, `employees/${userInfoRegister.user.uid}`);
+    setDoc(docRef, { email, password, name, lastName, position: "Predeterminado" });
+  }
+
   async function userLogin(email, password) {
     const userInfoLogin = await signInWithEmailAndPassword(
       auth,
@@ -80,10 +110,17 @@ const Login = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
+    const name = e.target.elements.name.value;
+    const lastName = e.target.elements.lastName.value;
     const email = e.target.elements.email.value;
     const password = e.target.elements.password.value;
     console.log(email, password);
-    userLogin(email, password);
+
+    if (isRegistering) {
+      userRegister(email, password, name, lastName);
+    } else {
+      userLogin(email, password);
+    }
   };
 
   useEffect(() => {
@@ -104,11 +141,29 @@ const Login = () => {
       ) : (
         <div className="primary-container">
           <div className="login">
-            <h1>Inicia Sesión</h1>
+            <h1>{isRegistering ? "Registrate" : "Inica sesion"}</h1>
           </div>
           <form onSubmit={submitHandler}>
             <div className="secondary-container">
               <div className="form-group">
+                <label>Nombre</label>
+                <input
+                  placeholder="Ingrese su Nombre"
+                  type="text"
+                  id="name"
+                  className="form-control"
+                  onChange={changeNameHandler}
+                ></input>
+                <br></br>
+                <label>Apellido</label>
+                <input
+                  placeholder="Ingrese su Apellido"
+                  type="text"
+                  id="lastName"
+                  className="form-control"
+                  onChange={changeLastNameHandler}
+                ></input>
+                <br></br>
                 <label>Correo electronico: </label>
                 <br />
                 <input
@@ -143,11 +198,19 @@ const Login = () => {
 
                 <br />
                 <button type="submit" className="btn btn-primary">
-                  Iniciar Sesión
+                  {isRegistering ? "Registrate" : "Inica sesion"}
                 </button>
               </div>
             </div>
           </form>
+          <button
+            onClick={() => setIsRegistering(!isRegistering)}
+            className="btn btn-primary"
+          >
+            {isRegistering
+              ? " ¿Ya tienes cuenta? Inica sesion"
+              : "¿Ya tienes cuenta? Registrate gratis"}
+          </button>
           <button className="btn-eye" onClick={toggleBtn}>
             {state ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
           </button>

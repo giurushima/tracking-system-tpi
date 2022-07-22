@@ -2,9 +2,23 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
 import { db } from "../firebase/firebase-configDB";
+import firebaseApp from "../firebase/firebase-config";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+
+const auth = getAuth(firebaseApp);
 
 const Show = () => {
   const [trips, setTrips] = useState([]);
+
+  const [user, setUser] = useState(null);
+
+  onAuthStateChanged(auth, (userFirebase) => {
+    if (userFirebase) {
+      setUser(userFirebase);
+    } else {
+      setUser(null);
+    }
+  });
 
   const tripsCollectionRef = collection(db, "trips");
 
@@ -22,7 +36,7 @@ const Show = () => {
   useEffect(() => {
     getTrips();
   }, []);
-
+  
   return (
     <>
       <div className="container">
@@ -82,5 +96,6 @@ const Show = () => {
     </>
   );
 };
+
 
 export default Show;
