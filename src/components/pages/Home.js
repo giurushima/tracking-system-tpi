@@ -1,3 +1,4 @@
+import Location from "../maps/Location";
 import "./Home.css";
 
 const Home = () => {
@@ -10,11 +11,10 @@ const Home = () => {
             Esta pagina le permitira a los empleados de esta empresa
             identificarse y optar por el cargo correspondiente en la seccion de
             Empleados. Le permitira a los camioneros elegir si el viaje fue
-            realizado, rechazado o quedo pendiente, en la seccion de Viajes. En
-            la seccion Recibos tanto el empleado como el camionero podran elegir
-            se ocupacion, ingresar las horas trabajdas y calcular su sueldo.{" "}
+            realizado, rechazado o quedo pendiente, en la seccion de Viajes.
           </h4>
         </div>
+        <Location />
       </div>
     </>
   );

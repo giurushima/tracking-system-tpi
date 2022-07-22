@@ -9,7 +9,7 @@ import {
   SkeletonText,
   Text,
 } from "@chakra-ui/react";
- import { FaLocationArrow, FaTimes } from "react-icons/fa";
+import { FaLocationArrow, FaTimes } from "react-icons/fa";
 
 import {
   useJsApiLoader,
