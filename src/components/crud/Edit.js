@@ -62,15 +62,21 @@ const Edit = () => {
     getEmployeeById(id);
   }, []);
 
+  const validEmail = (email) => {
+    return String(email)
+      .toLowerCase()
+      .match(/^\S+@\S+\.\S+$/);
+  };
+
   const validationRequirementsEmployee = {
     name: { required: true },
     lastName: { required: true },
-    email: { required: true},
+    email: { required: true, isEmail: true},
     password: { required: true, minLength: 6 },
     position: { required: true },
   };
 
-  const validate = (employeeObject) => {
+  const validate = (employeeObject, field) => {
     let errors = {};
     if (employeeObject) {
       Object.keys(validationRequirementsEmployee).forEach((key) => {
@@ -79,6 +85,12 @@ const Edit = () => {
           !employeeObject[key]
         ) {
           errors[key] = "El campo es obligatorio.";
+        } else if (
+          validationRequirementsEmployee[key].isEmail &&
+          !validEmail(employeeObject[key]) &&
+          (key === field || !field)
+        ) {
+          errors[key] = "Debe ingresar un email válido.";
         } else if (
           validationRequirementsEmployee[key].minLength > 0 &&
           employeeObject[key].length <
@@ -155,7 +167,7 @@ const Edit = () => {
                   setErrors(validate(generateObjectEmployee()));
                 }}
               />
-              {errors?.user && <div className="red"> {errors.user} </div>}
+              {errors?.email && <div className="red"> {errors.email} </div>}
             </div>
             <div className="mb-3">
               <label className="form-label">CONTRASEÑA</label>

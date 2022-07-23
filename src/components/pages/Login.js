@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import Loader from "../loader/Loader";
-import { getFirestore, doc, collection, setDoc } from "firebase/firestore";
+import { getFirestore, doc, setDoc } from "firebase/firestore";
 import "./Login.css";
 
 import firebaseApp from "../firebase/firebase-config";
@@ -14,11 +14,13 @@ const auth = getAuth(firebaseApp);
 
 const Login = () => {
   const firestore = getFirestore(firebaseApp);
-  const [userLogin_, setUserLogin] = useState("");
-  const [passwordLogin, setPasswordLogin] = useState("");
-  const [errorsLogin, setErrorsLogin] = useState(null);
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [emailRegister, setEmailRegister] = useState("");
+  const [passwordRegister, setPasswordRegister] = useState("");
+  const [emailLogin, setEmailLogin] = useState("");
+  const [passwordLogin, setPasswordLogin] = useState("");
+  const [errorsLogin, setErrorsLogin] = useState(null);
   const [loading, setLoading] = useState(false);
   const [state, setState] = useState(false);
   const [isRegistering, setIsRegistering] = useState(false);
@@ -31,8 +33,16 @@ const Login = () => {
     setLastName(e.target.value);
   };
 
-  const changeUserLoginHandler = (e) => {
-    setUserLogin(e.target.value);
+  const changeEmailRegisterHandler = (e) => {
+    setEmailRegister(e.target.value);
+  };
+
+  const changePasswordRegisterHandler = (e) => {
+    setPasswordRegister(e.target.value);
+  };
+
+  const changeEmailLoginHandler = (e) => {
+    setEmailLogin(e.target.value);
   };
   const changePasswordLoginHandler = (e) => {
     setPasswordLogin(e.target.value);
@@ -44,12 +54,19 @@ const Login = () => {
       .match(/^\S+@\S+\.\S+$/);
   };
 
+  const validationRequirementsRegister = {
+    name: { required: true },
+    lastName: { required: true },
+    emailRegister: { required: true, isEmail: true },
+    passwordRegister: { required: true, minLength: 6 },
+  };
+
   const validationRequirementsLogin = {
-    userLogin_: { required: true, isEmail: true },
+    emailLogin: { required: true, isEmail: true },
     passwordLogin: { required: true, minLength: 6 },
   };
 
-  const validate = (loginObject, field) => {
+  const validateLogin = (loginObject, field) => {
     let errors = {};
     if (loginObject) {
       Object.keys(validationRequirementsLogin).forEach((key) => {
@@ -75,10 +92,50 @@ const Login = () => {
     return errors;
   };
 
+  const validateRegister = (RegisterObject, field) => {
+    let errors = {};
+    if (RegisterObject) {
+      Object.keys(validationRequirementsRegister).forEach((key) => {
+        if (
+          validationRequirementsRegister[key].required &&
+          !RegisterObject[key]
+        ) {
+          errors[key] = "El campo es obligatorio.";
+        } else if (
+          validationRequirementsRegister[key].isEmail &&
+          !validEmail(RegisterObject[key]) &&
+          (key === field || !field)
+        ) {
+          errors[key] = "Debe ingresar un email válido.";
+        } else if (
+          validationRequirementsRegister[key].minLength > 0 &&
+          RegisterObject[key].length <
+            validationRequirementsRegister[key].minLength
+        ) {
+          errors[key] =
+            "El campo debe terner al menos " +
+            validationRequirementsRegister[key].minLength +
+            " caracteres.";
+        }
+      });
+    }
+    return errors;
+  };
+
   const generateObjectLogin = () => {
     const Data = {
-      userLogin_,
+      emailLogin,
       passwordLogin,
+    };
+    return Data;
+  };
+
+  const generateObjectRegister = () => {
+    const Data = {
+      name,
+      lastName,
+      emailRegister,
+      passwordRegister,
     };
     return Data;
   };
@@ -94,21 +151,27 @@ const Login = () => {
     console.log(userInfoRegister);
     console.log(userInfoRegister.user.uid);
     const docRef = doc(firestore, `employees/${userInfoRegister.user.uid}`);
-    setDoc(docRef, { email, password, name, lastName, position: "Predeterminado" });
+    setDoc(docRef, {
+      email,
+      password,
+      name,
+      lastName,
+      position: "Predeterminado",
+    });
   }
 
-  async function userLogin(email, password) {
+  async function userLogin(emailLogin, passwordLogin) {
     const userInfoLogin = await signInWithEmailAndPassword(
       auth,
-      email,
-      password
+      emailLogin,
+      passwordLogin
     ).then((userFirebase) => {
       return userFirebase;
     });
     console.log(userInfoLogin);
   }
 
-  const submitHandler = (e) => {
+  const submitHandlerRegister = (e) => {
     e.preventDefault();
     const name = e.target.elements.name.value;
     const lastName = e.target.elements.lastName.value;
@@ -120,6 +183,19 @@ const Login = () => {
       userRegister(email, password, name, lastName);
     } else {
       userLogin(email, password);
+    }
+  };
+
+  const submitHandlerLogin = (e) => {
+    e.preventDefault();
+    const emailLogin = e.target.elements.emailLogin.value;
+    const passwordLogin = e.target.elements.passwordLogin.value;
+    console.log(emailLogin, passwordLogin);
+
+    if (isRegistering) {
+      userRegister(emailLogin, passwordLogin);
+    } else {
+      userLogin(emailLogin, passwordLogin);
     }
   };
 
@@ -141,43 +217,108 @@ const Login = () => {
       ) : (
         <div className="primary-container">
           <div className="login">
-            <h1>{isRegistering ? "Registrate" : "Inica sesion"}</h1>
+            <h1>{isRegistering ? "Registrate" : "Inicia sesion"}</h1>
           </div>
-          <form onSubmit={submitHandler}>
-            <div className="secondary-container">
-              <div className="form-group">
-                <label>Nombre</label>
-                <input
-                  placeholder="Ingrese su Nombre"
-                  type="text"
-                  id="name"
-                  className="form-control"
-                  onChange={changeNameHandler}
-                ></input>
-                <br></br>
-                <label>Apellido</label>
-                <input
-                  placeholder="Ingrese su Apellido"
-                  type="text"
-                  id="lastName"
-                  className="form-control"
-                  onChange={changeLastNameHandler}
-                ></input>
-                <br></br>
+          {isRegistering ? (
+            <form onSubmit={submitHandlerRegister}>
+              <div className="secondary-container">
+                <div className="form-group">
+                  <label>Nombre</label>
+                  <input
+                    placeholder="Ingrese su Nombre"
+                    type="text"
+                    id="name"
+                    className="form-control"
+                    onChange={changeNameHandler}
+                    onBlur={(e) => {
+                      setErrorsLogin(
+                        validateRegister(generateObjectRegister())
+                      );
+                    }}
+                  />
+                  {errorsLogin?.name && (
+                    <div className="red"> {errorsLogin.name} </div>
+                  )}
+                  <br></br>
+                  <label>Apellido</label>
+                  <input
+                    placeholder="Ingrese su Apellido"
+                    type="text"
+                    id="lastName"
+                    className="form-control"
+                    onChange={changeLastNameHandler}
+                    onBlur={(e) => {
+                      setErrorsLogin(
+                        validateRegister(generateObjectRegister())
+                      );
+                    }}
+                  />
+                  {errorsLogin?.lastName && (
+                    <div className="red"> {errorsLogin.lastName} </div>
+                  )}
+                  <br></br>
+                  <label>Correo electronico: </label>
+                  <br />
+                  <input
+                    placeholder="ejemplo@gmail.com"
+                    type="email"
+                    id="email"
+                    className="form-control"
+                    onChange={changeEmailRegisterHandler}
+                    onBlur={(e) => {
+                      setErrorsLogin(
+                        validateRegister(generateObjectRegister())
+                      );
+                    }}
+                  />
+                  {errorsLogin?.emailRegister && (
+                    <div className="red"> {errorsLogin.emailRegister} </div>
+                  )}
+                  <br />
+                  <label>Contraseña: </label>
+                  <br />
+                  <input
+                    placeholder="contraseña"
+                    type={state ? "text" : "password"}
+                    id="password"
+                    className="form-control"
+                    onChange={changePasswordRegisterHandler}
+                    onBlur={(e) => {
+                      setErrorsLogin(
+                        validateRegister(generateObjectRegister())
+                      );
+                    }}
+                  />
+                  {errorsLogin?.passwordRegister && (
+                    <div className="red"> {errorsLogin.passwordRegister} </div>
+                  )}
+                  <button className="btn-eye" onClick={toggleBtn}>
+                    {state ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
+                  </button>
+                  <br />
+                  <button type="submit" className="btn btn-primary">
+                    {isRegistering ? "Registrate" : "Inica sesion"}
+                  </button>
+                </div>
+              </div>
+            </form>
+          ) : (
+            <form onSubmit={submitHandlerLogin}>
+              <div className="label-email-pass">
                 <label>Correo electronico: </label>
                 <br />
                 <input
                   placeholder="ejemplo@gmail.com"
                   type="email"
-                  id="email"
+                  id="emailLogin"
                   className="form-control"
-                  onChange={changeUserLoginHandler}
+                  onChange={changeEmailLoginHandler}
                   onBlur={(e) => {
-                    setErrorsLogin(validate(generateObjectLogin()));
+                    setErrorsLogin(validateLogin(generateObjectLogin()));
                   }}
                 />
-                {errorsLogin?.userLogin_ && (
-                  <div className="red"> {errorsLogin.userLogin_} </div>
+                {errorsLogin?.emailLogin && (
+                  <div className="red"> {errorsLogin.emailLogin} </div>
                 )}
                 <br />
                 <label>Contraseña: </label>
@@ -185,35 +326,39 @@ const Login = () => {
                 <input
                   placeholder="contraseña"
                   type={state ? "text" : "password"}
-                  id="password"
+                  id="passwordLogin"
                   className="form-control"
                   onChange={changePasswordLoginHandler}
                   onBlur={(e) => {
-                    setErrorsLogin(validate(generateObjectLogin()));
+                    setErrorsLogin(validateLogin(generateObjectLogin()));
                   }}
                 />
                 {errorsLogin?.passwordLogin && (
                   <div className="red"> {errorsLogin.passwordLogin} </div>
                 )}
-
-                <br />
-                <button type="submit" className="btn btn-primary">
-                  {isRegistering ? "Registrate" : "Inica sesion"}
+              </div>
+              <div className="div-eye">
+                <button className="btn-eye" onClick={toggleBtn}>
+                  {state ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
                 </button>
               </div>
-            </div>
-          </form>
-          <button
-            onClick={() => setIsRegistering(!isRegistering)}
-            className="btn btn-primary"
-          >
-            {isRegistering
-              ? " ¿Ya tienes cuenta? Inica sesion"
-              : "¿Ya tienes cuenta? Registrate gratis"}
-          </button>
-          <button className="btn-eye" onClick={toggleBtn}>
-            {state ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
-          </button>
+              <div className="div-login">
+                <button type="submit" className="btn btn-primary">
+                  {isRegistering ? "Registrate" : "Inicia sesion"}
+                </button>
+              </div>
+            </form>
+          )}
+          <div className="btn-login">
+            <button
+              onClick={() => setIsRegistering(!isRegistering)}
+              className="btn btn-primary"
+            >
+              {isRegistering
+                ? " ¿Ya tienes cuenta? Inica sesion"
+                : "¿Ya tienes cuenta? Registrate gratis"}
+            </button>
+          </div>
         </div>
       )}
     </>

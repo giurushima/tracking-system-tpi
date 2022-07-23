@@ -12,18 +12,37 @@ h1 {
 }
 
 .login {
-font-size: 2em;
-padding-bottom: 5%;
+  font-size: 2em;
+  padding-bottom: 5%;
+}
+
+.div-eye {
+  margin-left: 8em;
+}
+
+.div-login {
+  margin-left: 5.5em;
 }
 
 .secondary-container {
   text-align: center;
 }
 
+.label-email-pass {
+  text-align: center;
+}
+
 .btn-eye {
   padding: 0.5em;
-  margin-left: 5em;
   font-size: 130%;
+}
+
+.btn-login {
+  padding: 0.5em;
+}
+
+.btn-eye-login {
+  margin-left: 6em;
 }
 
 #light .form-group {
