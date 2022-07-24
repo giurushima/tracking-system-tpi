@@ -83,10 +83,7 @@ function App() {
               path="/edit/:id"
               element={user ? <Edit /> : <Navigate to="/" replace />}
             />
-            <Route
-              path="*"
-              element={<PageNotFound />}
-            />
+            <Route path="*" element={<PageNotFound />} />
           </Routes>
         </div>
         <div className="theme-input">
