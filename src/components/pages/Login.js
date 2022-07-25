@@ -29,10 +29,6 @@ const Login = () => {
     setName(e.target.value);
   };
 
-  const changeLastNameHandler = (e) => {
-    setLastName(e.target.value);
-  };
-
   const changeEmailRegisterHandler = (e) => {
     setEmailRegister(e.target.value);
   };
@@ -56,7 +52,6 @@ const Login = () => {
 
   const validationRequirementsRegister = {
     name: { required: true },
-    lastName: { required: true },
     emailRegister: { required: true, isEmail: true },
     passwordRegister: { required: true, minLength: 6 },
   };
@@ -133,7 +128,6 @@ const Login = () => {
   const generateObjectRegister = () => {
     const Data = {
       name,
-      lastName,
       emailRegister,
       passwordRegister,
     };
@@ -155,7 +149,6 @@ const Login = () => {
       email,
       password,
       name,
-      lastName,
       position: "Predeterminado",
     });
   }
@@ -174,13 +167,12 @@ const Login = () => {
   const submitHandlerRegister = (e) => {
     e.preventDefault();
     const name = e.target.elements.name.value;
-    const lastName = e.target.elements.lastName.value;
     const email = e.target.elements.email.value;
     const password = e.target.elements.password.value;
     console.log(email, password);
 
     if (isRegistering) {
-      userRegister(email, password, name, lastName);
+      userRegister(email, password, name);
     } else {
       userLogin(email, password);
     }
@@ -225,7 +217,7 @@ const Login = () => {
                 <div className="form-group">
                   <label>Nombre y Apellido</label>
                   <input
-                    placeholder="Ingrese su Nombre"
+                    placeholder="Ingrese su Nombre y Apellido"
                     type="text"
                     id="name"
                     className="form-control"
@@ -339,7 +331,7 @@ const Login = () => {
             >
               {isRegistering
                 ? " ¿Ya tienes cuenta? Inica sesion"
-                : "¿Ya tienes cuenta? Registrate"}
+                : "¿Ya tienes cuenta? Registrate gratis"}
             </button>
           </div>
         </div>

@@ -18,7 +18,7 @@ const NavBar = () => {
               INICIO
             </Nav.Link>
             <Nav.Link as={Link} to="/Trips">
-              VIÁJES
+              VIAJES
             </Nav.Link>
             <Nav.Link as={Link} to="/Employed">
               EMPLEADOS
