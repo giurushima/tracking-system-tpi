@@ -7,7 +7,6 @@ import "./Edit.css";
 
 const Edit = () => {
   const [name, setName] = useState("");
-  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [position, setPosition] = useState("");
@@ -18,10 +17,6 @@ const Edit = () => {
 
   const changeNameHandler = (e) => {
     setName(e.target.value);
-  };
-
-  const changeLastNameHandler = (e) => {
-    setLastName(e.target.value);
   };
 
   const changeUserHandler = (e) => {
@@ -39,7 +34,7 @@ const Edit = () => {
   const updateEmployee = async (e) => {
     e.preventDefault();
     const userDoc = doc(db, "employees", id);
-    const newFields = { name, lastName, email, password, position };
+    const newFields = { name, email, password, position };
     await updateDoc(userDoc, newFields);
     navigate("/employed");
   };
@@ -49,7 +44,6 @@ const Edit = () => {
     if (employee.exists()) {
       console.log(employee.data());
       setName(employee.data().name);
-      setLastName(employee.data().lastName);
       setEmail(employee.data().email);
       setPassword(employee.data().password);
       setPosition(employee.data().position);
@@ -70,7 +64,6 @@ const Edit = () => {
 
   const validationRequirementsEmployee = {
     name: { required: true },
-    lastName: { required: true },
     email: { required: true, isEmail: true},
     password: { required: true, minLength: 6 },
     position: { required: true },
@@ -109,7 +102,6 @@ const Edit = () => {
   const generateObjectEmployee = () => {
     const Data = {
       name,
-      lastName,
       email,
       password,
       position,
@@ -126,7 +118,7 @@ const Edit = () => {
           </div>
           <form onSubmit={updateEmployee}>
             <div className="mb-3">
-              <label className="form-label">NOMBRE/S</label>
+              <label className="form-label">NOMBRE/S y APELLIDO/S</label>
               <input
                 placeholder="ingrese su/s nombre/s"
                 value={name}
@@ -138,22 +130,6 @@ const Edit = () => {
                 }}
               />
               {errors?.name && <div className="red"> {errors.name} </div>}
-            </div>
-            <div className="mb-3">
-              <label className="form-label">APELLIDO/S</label>
-              <input
-                placeholder="ingrese su/s apellido/s"
-                value={lastName}
-                onChange={changeLastNameHandler}
-                type="text"
-                className="form-control"
-                onBlur={(e) => {
-                  setErrors(validate(generateObjectEmployee()));
-                }}
-              />
-              {errors?.lastName && (
-                <div className="red"> {errors.lastName} </div>
-              )}
             </div>
             <div className="mb-3">
               <label className="form-label">EMAIL</label>

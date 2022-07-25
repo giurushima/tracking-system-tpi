@@ -1,14 +1,24 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { collection, addDoc } from "firebase/firestore";
-import { db } from "../firebase/firebase-configDB";
-
+import React, { useState, useEffect } from "react";
 import "./CreateTrips.css";
+import { useNavigate } from "react-router-dom";
+import {
+  collection,
+  addDoc,
+  getDocs,
+  getFirestore,
+} from "firebase/firestore";
+import firebaseApp from "../firebase/firebase-config";
+import { db } from "../firebase/firebase-configDB";
+import { getAuth } from "firebase/auth";
+
+const auth = getAuth(firebaseApp);
+const firestore = getFirestore(firebaseApp);
 
 const Edit = () => {
   const [source, setSource] = useState("");
   const [destiny, setDestiny] = useState("");
-  const [truckDriverTrips, setTruckDriverTrips] = useState("");
+  const [truckDriver, setTruckDriver] = useState("");
+  const [employees, setEmployees] = useState([]);
   const [tripStatus, setTripStatus] = useState("");
   const [errors, setErrors] = useState(null);
 
@@ -22,8 +32,8 @@ const Edit = () => {
   const changeDestinyHandler = (e) => {
     setDestiny(e.target.value);
   };
-  const changeTruckDriverTripsHandler = (e) => {
-    setTruckDriverTrips(e.target.value);
+  const changeTruckDriverHandler = (e) => {
+    setTruckDriver(e.target.value);
   };
   const changeTripStatusHandler = (e) => {
     setTripStatus(e.target.value);
@@ -34,7 +44,7 @@ const Edit = () => {
     await addDoc(tripsCollectionRef, {
       source,
       destiny,
-      truckDriverTrips,
+      truckDriver,
       tripStatus,
     });
     navigate("/trips");
@@ -43,7 +53,6 @@ const Edit = () => {
   const validationRequirementsTrips = {
     source: { required: true },
     destiny: { required: true },
-    truckDriverTrips: { required: true },
     tripStatus: { required: true },
   };
 
@@ -63,11 +72,27 @@ const Edit = () => {
     const Data = {
       source,
       destiny,
-      truckDriverTrips,
       tripStatus,
     };
     return Data;
   };
+
+  const usersCollectionRef = collection(db, "employees");
+
+  const getUsers = async () => {
+    const getEmployeesData = await getDocs(usersCollectionRef);
+    setEmployees(
+      getEmployeesData.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+    );
+  };
+
+  useEffect(() => {
+    getUsers();
+  }, []);
+
+  const filteredTruckers = employees.filter(
+    (trucker) => trucker.position === "Camionero"
+  );
 
   return (
     <div className="container">
@@ -107,16 +132,18 @@ const Edit = () => {
             </div>
             <div className="mb-3">
               <label className="form-label">CAMIONERO</label>
-              <input
-                placeholder="nombre y apellido"
-                value={truckDriverTrips}
-                onChange={changeTruckDriverTripsHandler}
-                type="text"
+              <select
+                name="tripTrucker"
                 className="form-control"
-                onBlur={(e) => {
-                  setErrors(validate(generateObjectTrips()));
-                }}
-              />
+                onChange={changeTruckDriverHandler}
+                value={truckDriver}
+              >
+                {filteredTruckers.map((trucker) => (
+                  <option key={trucker.id} value={trucker.name}>
+                    {trucker.name}
+                  </option>
+                ))}
+              </select>
               {errors?.truckDriverTrips && (
                 <div className="red"> {errors.truckDriverTrips} </div>
               )}
@@ -134,8 +161,6 @@ const Edit = () => {
               >
                 <option value="">---</option>
                 <option value="Pendiente">Pendiente</option>
-                <option value="Confirmado">Confirmado</option>
-                <option value="Realizado">Realizado</option>
               </select>
               {errors?.tripStatus && (
                 <div className="red"> {errors.tripStatus} </div>

@@ -38,8 +38,7 @@ const Show = () => {
             <table className="table table-dark table-hover">
               <thead>
                 <tr>
-                  <th>Nombre/s</th>
-                  <th>Apellido/s</th>
+                  <th>Nombre/s y Apellido/s</th>
                   <th>Email</th>
                   <th>Contraseña</th>
                   <th>Cargo/Posicion</th>
@@ -50,7 +49,6 @@ const Show = () => {
                 {employees.map((employee) => (
                   <tr key={employee.id}>
                     <td>{employee.name}</td>
-                    <td>{employee.lastName}</td>
                     <td>{employee.email}</td>
                     <td>{employee.password}</td>
                     <td>{employee.position}</td>

@@ -223,7 +223,7 @@ const Login = () => {
             <form onSubmit={submitHandlerRegister}>
               <div className="secondary-container">
                 <div className="form-group">
-                  <label>Nombre</label>
+                  <label>Nombre y Apellido</label>
                   <input
                     placeholder="Ingrese su Nombre"
                     type="text"
@@ -238,23 +238,6 @@ const Login = () => {
                   />
                   {errorsLogin?.name && (
                     <div className="red"> {errorsLogin.name} </div>
-                  )}
-                  <br></br>
-                  <label>Apellido</label>
-                  <input
-                    placeholder="Ingrese su Apellido"
-                    type="text"
-                    id="lastName"
-                    className="form-control"
-                    onChange={changeLastNameHandler}
-                    onBlur={(e) => {
-                      setErrorsLogin(
-                        validateRegister(generateObjectRegister())
-                      );
-                    }}
-                  />
-                  {errorsLogin?.lastName && (
-                    <div className="red"> {errorsLogin.lastName} </div>
                   )}
                   <br></br>
                   <label>Correo electronico: </label>
