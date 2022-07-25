@@ -339,7 +339,7 @@ const Login = () => {
             >
               {isRegistering
                 ? " ¿Ya tienes cuenta? Inica sesion"
-                : "¿Ya tienes cuenta? Registrate gratis"}
+                : "¿Ya tienes cuenta? Registrate"}
             </button>
           </div>
         </div>

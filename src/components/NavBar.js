@@ -18,7 +18,7 @@ const NavBar = () => {
               INICIO
             </Nav.Link>
             <Nav.Link as={Link} to="/Trips">
-              VIAJES
+              VIÁJES
             </Nav.Link>
             <Nav.Link as={Link} to="/Employed">
               EMPLEADOS
@@ -31,7 +31,7 @@ const NavBar = () => {
       </Container>
       <div className="p-1" >
         <button className="btn btn-primary " onClick={() => signOut(auth)}>
-          Cerrar sesion
+          Cerrar sesión
         </button>
       </div>
     </Navbar>
